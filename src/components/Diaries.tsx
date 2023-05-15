@@ -11,12 +11,12 @@ const Diaries = () => {
     <>
       <h2>Diary Entries</h2>
       {diaries.map((diary) => (
-        <>
-          <h3 key={diary.id}>{diary.date}</h3>
-          <div key={diary.id}>
-            {diary.weather} <br /> {diary.visibility}{" "}
+        <div key={diary.id}>
+          <h3>{diary.date}</h3>
+          <div>
+            {diary.weather} <br /> {diary.visibility}
           </div>
-        </>
+        </div>
       ))}
     </>
   );
