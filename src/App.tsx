@@ -1,10 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { getAllDiaries } from "./services/diaryService";
+
+import { Diary } from "./types";
 
 function App() {
-  const [diaries, setDiaries] = useState([]);
+  const [diaries, setDiaries] = useState<Diary[]>([]);
 
-  return <h1>Hello</h1>;
+  useEffect(() => {
+    getAllDiaries().then((data) => setDiaries(data));
+  }, []);
+
+  return (
+    <>
+      <div>
+        {diaries.map((diary) => (
+          <p key={diary.id}>{diary.weather}</p>
+        ))}
+      </div>
+    </>
+  );
 }
 
 export default App;
