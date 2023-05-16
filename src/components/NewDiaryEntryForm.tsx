@@ -10,11 +10,18 @@ interface IProps {
 
 const NewDiaryEntryForm = (props: IProps) => {
   const [date, setDate] = useState("");
-  const [visibility, setVisibility] = useState("");
-  const [weather, setWeather] = useState("");
+  const [visibility, setVisibility] = useState("great");
+  const [weather, setWeather] = useState("sunny");
   const [comment, setComment] = useState("");
 
   const [notification, setNotification] = useState("");
+
+  const visibilitySelected = (value: string) => {
+    setVisibility(value);
+  };
+  const weatherSelected = (value: string) => {
+    setWeather(value);
+  };
 
   const addEntry = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -34,8 +41,6 @@ const NewDiaryEntryForm = (props: IProps) => {
 
     setDate("");
     setComment("");
-    setVisibility("");
-    setWeather("");
   };
 
   return (
@@ -54,21 +59,69 @@ const NewDiaryEntryForm = (props: IProps) => {
           />
         </div>
         <div>
-          visibility{" "}
-          <input
-            type="text"
-            onChange={(e) => setVisibility(e.target.value)}
-            value={visibility}
-          />
+          <div>
+            visibility: great
+            <input
+              type="radio"
+              name="filterVisibility"
+              onChange={() => visibilitySelected("great")}
+            />
+            good{" "}
+            <input
+              type="radio"
+              name="filterVisibility"
+              onChange={() => visibilitySelected("good")}
+            />
+            ok{" "}
+            <input
+              type="radio"
+              name="filterVisibility"
+              onChange={() => visibilitySelected("ok")}
+            />
+            poor{" "}
+            <input
+              type="radio"
+              name="filterVisibility"
+              onChange={() => visibilitySelected("poor")}
+            />
+          </div>
         </div>
+
         <div>
-          weather{" "}
-          <input
-            type="text"
-            onChange={(e) => setWeather(e.target.value)}
-            value={weather}
-          />
+          <div>
+            weather: sunny
+            <input
+              type="radio"
+              name="filter"
+              onChange={() => weatherSelected("sunny")}
+            />
+            rainy{" "}
+            <input
+              type="radio"
+              name="filter"
+              onChange={() => weatherSelected("rainy")}
+            />
+            cloudy{" "}
+            <input
+              type="radio"
+              name="filter"
+              onChange={() => weatherSelected("cloudy")}
+            />
+            stormy{" "}
+            <input
+              type="radio"
+              name="filter"
+              onChange={() => weatherSelected("stormy")}
+            />
+            windy{" "}
+            <input
+              type="radio"
+              name="filter"
+              onChange={() => weatherSelected("windy")}
+            />
+          </div>
         </div>
+
         <div>
           comment{" "}
           <input
