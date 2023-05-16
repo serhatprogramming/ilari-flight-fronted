@@ -1,15 +1,37 @@
 import { useState } from "react";
+import { addDiary } from "../services/diaryService";
+import { NewDiary } from "../types";
+import { Diary } from "../types";
 
-const NewDiaryEntryForm = () => {
+interface IProps {
+  diaries: Diary[];
+  setDiaryMethod: (diary: Diary) => void;
+}
+
+const NewDiaryEntryForm = (props: IProps) => {
   const [date, setDate] = useState("");
   const [visibility, setVisibility] = useState("");
   const [weather, setWeather] = useState("");
   const [comment, setComment] = useState("");
 
+  const [notification, setNotification] = useState("");
+
   const addEntry = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const newEntry = { date, visibility, weather, comment };
-    console.log("hello people", newEntry);
+    const newEntry: NewDiary = { date, visibility, weather, comment };
+    addDiary(newEntry).then((data) => {
+      if (typeof data === "string") {
+        setNotification(data);
+        setTimeout(() => {
+          setNotification("");
+        }, 3000);
+      } else {
+        // const addedDiary: Diary = data;
+        // props.setDiaries(props.diaries.concat(addedDiary));
+        props.setDiaryMethod(data);
+      }
+    });
+
     setDate("");
     setComment("");
     setVisibility("");
@@ -19,6 +41,9 @@ const NewDiaryEntryForm = () => {
   return (
     <div>
       <h2>Add new entry</h2>
+      {notification.length > 0 && (
+        <p style={{ color: "red" }}>{notification}</p>
+      )}
       <form onSubmit={addEntry}>
         <div>
           date{" "}

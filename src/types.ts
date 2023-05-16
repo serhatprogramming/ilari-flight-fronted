@@ -5,3 +5,10 @@ export interface Diary {
   visibility: string;
   comment: string;
 }
+
+export interface NewDiary {
+  date: string;
+  weather: string;
+  visibility: string;
+  comment: string;
+}
